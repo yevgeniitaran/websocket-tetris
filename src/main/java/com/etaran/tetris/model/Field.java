@@ -7,6 +7,7 @@ public class Field {
     private final String fieldId = UUID.randomUUID().toString();
     private final Cell[][] cells = new Cell[40][10];
     private Figure currentFigure;
+    private FigureState figureState;
 
     public String getFieldId() {
         return fieldId;
@@ -22,5 +23,13 @@ public class Field {
 
     public void setCurrentFigure(Figure currentFigure) {
         this.currentFigure = currentFigure;
+    }
+
+    public FigureState getFigureState() {
+        return figureState;
+    }
+
+    public void setFigureState(FigureState figureState) {
+        this.figureState = figureState;
     }
 }
