@@ -9,10 +9,12 @@ public class FieldService {
 
     private final RotationService rotationService;
     private final DrawService drawService;
+    private final RandomFigureGenerator randomFigureGenerator;
 
-    public FieldService(RotationService rotationService, DrawService drawService) {
+    public FieldService(RotationService rotationService, DrawService drawService, RandomFigureGenerator randomFigureGenerator) {
         this.rotationService = rotationService;
         this.drawService = drawService;
+        this.randomFigureGenerator = randomFigureGenerator;
     }
 
     Field field = new Field();
@@ -23,7 +25,7 @@ public class FieldService {
 
     public void produceNewFigure() {
         field.setCurrentFigure(Figure.BLUE_J);
-
+        drawService.drawElement(field);
     }
 
     private void drawFigure() {
