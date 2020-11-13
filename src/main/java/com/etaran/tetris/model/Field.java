@@ -7,8 +7,11 @@ import java.util.UUID;
 
 public class Field {
 
+    public static final int FIELD_WIDTH = 10;
+    public static final int FIELD_HEIGHT = 40;
+
     private final String fieldId = UUID.randomUUID().toString();
-    private final Cell[][] cells = new Cell[40][10];
+    private final Cell[][] cells = new Cell[FIELD_HEIGHT][FIELD_WIDTH];
     private Figure currentFigure;
     private FigureState figureState;
     private Point figureCenter;

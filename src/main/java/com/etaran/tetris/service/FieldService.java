@@ -45,8 +45,8 @@ public class FieldService {
     private void moveCurrentFigure() {
         List<Point> movedPoints = new ArrayList<>();
         for (Point figurePoint : field.getFigurePoints()) {
-            if (figurePoint.y <= 0) field.setFigureCollapsed(true);
-            movedPoints.add(new Point(figurePoint.x, figurePoint.y - 1));
+            if (figurePoint.y >= Field.FIELD_HEIGHT) field.setFigureCollapsed(true);
+            movedPoints.add(new Point(figurePoint.x, figurePoint.y + 1));
         }
         if (field.isFigureCollapsed()) {
             return;
