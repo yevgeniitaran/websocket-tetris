@@ -1,5 +1,6 @@
 package com.etaran.tetris.model;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 public class Field {
@@ -10,6 +11,12 @@ public class Field {
     private FigureState figureState;
     private int figureCenterX;
     private int figureCenterY;
+
+    public Field() {
+        for  (Cell[] row : cells) {
+            Arrays.parallelSetAll(row, (i) -> new Cell());
+        }
+    }
 
     public String getFieldId() {
         return fieldId;

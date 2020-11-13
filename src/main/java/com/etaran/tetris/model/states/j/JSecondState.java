@@ -4,6 +4,8 @@ import com.etaran.tetris.model.FigureState;
 
 public class JSecondState implements FigureState {
 
+    private JSecondState() {}
+
     public static final JSecondState J_SECOND_STATE = new JSecondState();
 
     @Override

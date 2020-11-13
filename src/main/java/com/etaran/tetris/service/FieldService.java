@@ -25,12 +25,9 @@ public class FieldService {
 
     public void produceNewFigure() {
         field.setCurrentFigure(Figure.BLUE_J);
-        drawService.drawElement(field);
+        drawService.drawFigure(field, randomFigureGenerator.produceFigure());
     }
 
-    private void drawFigure() {
-
-    }
 
     public Field getField() {
         return field;

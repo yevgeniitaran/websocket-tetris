@@ -18,6 +18,7 @@ public class Cell {
     }
 
     public void setColor(Color color) {
+        this.busy = true;
         this.color = color;
     }
 }
