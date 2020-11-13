@@ -1,6 +1,8 @@
 package com.etaran.tetris.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class Field {
@@ -9,11 +11,12 @@ public class Field {
     private final Cell[][] cells = new Cell[40][10];
     private Figure currentFigure;
     private FigureState figureState;
-    private int figureCenterX;
-    private int figureCenterY;
+    private Point figureCenter;
+    private List<Point> figurePoints = new ArrayList<>();
+    private boolean figureCollapsed;
 
     public Field() {
-        for  (Cell[] row : cells) {
+        for (Cell[] row : cells) {
             Arrays.parallelSetAll(row, (i) -> new Cell());
         }
     }
@@ -42,19 +45,44 @@ public class Field {
         this.figureState = figureState;
     }
 
-    public int getFigureCenterX() {
-        return figureCenterX;
+    public Point getFigureCenter() {
+        return figureCenter;
     }
 
-    public void setFigureCenterX(int figureCenterX) {
-        this.figureCenterX = figureCenterX;
+    public void setFigureCenter(Point figureCenter) {
+        this.figureCenter = figureCenter;
     }
 
-    public int getFigureCenterY() {
-        return figureCenterY;
+    public List<Point> getFigurePoints() {
+        return figurePoints;
     }
 
-    public void setFigureCenterY(int figureCenterY) {
-        this.figureCenterY = figureCenterY;
+    public boolean isFigureCollapsed() {
+        return figureCollapsed;
+    }
+
+    public void setFigureCollapsed(boolean figureCollapsed) {
+        this.figureCollapsed = figureCollapsed;
+    }
+
+    public void showFigure() {
+        for (Point figurePoint : figurePoints) {
+            cells[figurePoint.x][figurePoint.y].setBusy(true);
+            cells[figurePoint.x][figurePoint.y].setColor(currentFigure.getColor());
+        }
+    }
+
+    public void hideFigure() {
+        for (Point figurePoint : figurePoints) {
+            cells[figurePoint.x][figurePoint.y].setBusy(false);
+            cells[figurePoint.x][figurePoint.y].setColor(null);
+        }
+    }
+
+    public void clearFigure() {
+        currentFigure = null;
+        figurePoints.clear();
+        figureState = null;
+        figureCenter = null;
     }
 }

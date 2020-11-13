@@ -3,6 +3,7 @@ package com.etaran.tetris.service;
 import com.etaran.tetris.model.Color;
 import com.etaran.tetris.model.Field;
 import com.etaran.tetris.model.Figure;
+import com.etaran.tetris.model.Point;
 import com.etaran.tetris.model.states.j.JFirstState;
 
 public class DrawService {
@@ -41,12 +42,14 @@ public class DrawService {
     }
 
     private void drawBlueJ(Field field) {
-        field.setFigureCenterX(FIELD_CENTER);
-        field.setFigureCenterY(J_FIELD_VERTICAL_CENTER);
-        field.getCells()[FIELD_CENTER][J_FIELD_VERTICAL_CENTER].setColor(Color.BLUE);
-        field.getCells()[FIELD_CENTER][J_FIELD_VERTICAL_CENTER - 1].setColor(Color.BLUE);
-        field.getCells()[FIELD_CENTER][J_FIELD_VERTICAL_CENTER + 1].setColor(Color.BLUE);
-        field.getCells()[FIELD_CENTER - 1][J_FIELD_VERTICAL_CENTER + 1].setColor(Color.BLUE);
+        field.getFigurePoints().clear();
+        field.setCurrentFigure(Figure.BLUE_J);
+        field.setFigureCenter(new Point(FIELD_CENTER, J_FIELD_VERTICAL_CENTER));
+        field.getFigurePoints().add(new Point(FIELD_CENTER, J_FIELD_VERTICAL_CENTER));
+        field.getFigurePoints().add(new Point(FIELD_CENTER, J_FIELD_VERTICAL_CENTER - 1));
+        field.getFigurePoints().add(new Point(FIELD_CENTER, J_FIELD_VERTICAL_CENTER + 1));
+        field.getFigurePoints().add(new Point(FIELD_CENTER - 1, J_FIELD_VERTICAL_CENTER + 1));
         field.setFigureState(JFirstState.J_FIRST_STATE);
+        field.showFigure();
     }
 }

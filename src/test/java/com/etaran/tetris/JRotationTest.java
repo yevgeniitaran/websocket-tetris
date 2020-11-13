@@ -27,8 +27,8 @@ public class JRotationTest {
         assertTrue(fieldService.getField().getCells()[DrawService.FIELD_CENTER][DrawService.J_FIELD_VERTICAL_CENTER - 1].isBusy());
         assertTrue(fieldService.getField().getCells()[DrawService.FIELD_CENTER][DrawService.J_FIELD_VERTICAL_CENTER + 1].isBusy());
         assertTrue(fieldService.getField().getCells()[DrawService.FIELD_CENTER - 1][DrawService.J_FIELD_VERTICAL_CENTER + 1].isBusy());
-        assertEquals(DrawService.FIELD_CENTER, fieldService.getField().getFigureCenterX());
-        assertEquals(DrawService.J_FIELD_VERTICAL_CENTER, fieldService.getField().getFigureCenterY());
+        assertEquals(DrawService.FIELD_CENTER, fieldService.getField().getFigureCenter().x);
+        assertEquals(DrawService.J_FIELD_VERTICAL_CENTER, fieldService.getField().getFigureCenter().y);
     }
 }
 
