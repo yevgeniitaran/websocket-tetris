@@ -44,11 +44,11 @@ public class DrawService {
     private void drawBlueJ(Field field) {
         field.getFigurePoints().clear();
         field.setCurrentFigure(Figure.BLUE_J);
-        field.setFigureCenter(new Point(FIELD_CENTER, J_FIELD_VERTICAL_CENTER));
-        field.getFigurePoints().add(new Point(FIELD_CENTER, J_FIELD_VERTICAL_CENTER));
-        field.getFigurePoints().add(new Point(FIELD_CENTER, J_FIELD_VERTICAL_CENTER - 1));
-        field.getFigurePoints().add(new Point(FIELD_CENTER, J_FIELD_VERTICAL_CENTER + 1));
-        field.getFigurePoints().add(new Point(FIELD_CENTER - 1, J_FIELD_VERTICAL_CENTER + 1));
+        field.setFigureCenter(new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER));
+        field.getFigurePoints().add(new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER));
+        field.getFigurePoints().add(new Point(J_FIELD_VERTICAL_CENTER - 1, FIELD_CENTER));
+        field.getFigurePoints().add(new Point(J_FIELD_VERTICAL_CENTER + 1, FIELD_CENTER));
+        field.getFigurePoints().add(new Point(J_FIELD_VERTICAL_CENTER + 1, FIELD_CENTER - 1));
         field.setFigureState(JFirstState.J_FIRST_STATE);
         field.showFigure();
     }
