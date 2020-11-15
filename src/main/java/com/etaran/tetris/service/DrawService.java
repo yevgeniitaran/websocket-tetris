@@ -5,7 +5,9 @@ import com.etaran.tetris.model.Field;
 import com.etaran.tetris.model.Figure;
 import com.etaran.tetris.model.Point;
 import com.etaran.tetris.model.states.j.JFirstState;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DrawService {
 
     public final static int FIELD_CENTER = 5;

@@ -2,7 +2,9 @@ package com.etaran.tetris.service.rotation;
 
 import com.etaran.tetris.model.Field;
 import com.etaran.tetris.model.Shape;
+import org.springframework.stereotype.Service;
 
+@Service
 public class JRotationService {
 
     public void rotateFigure(Field field) {

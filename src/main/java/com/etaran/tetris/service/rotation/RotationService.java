@@ -2,10 +2,12 @@ package com.etaran.tetris.service.rotation;
 
 import com.etaran.tetris.model.Field;
 import com.etaran.tetris.model.Shape;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.function.Consumer;
 
+@Service
 public class RotationService {
 
     private final JRotationService jRotationService;

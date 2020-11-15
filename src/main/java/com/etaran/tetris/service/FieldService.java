@@ -4,11 +4,12 @@ import com.etaran.tetris.model.Field;
 import com.etaran.tetris.model.Figure;
 import com.etaran.tetris.model.Point;
 import com.etaran.tetris.service.rotation.RotationService;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Service
 public class FieldService {
 
     private final RotationService rotationService;
