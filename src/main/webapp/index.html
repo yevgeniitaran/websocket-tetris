@@ -1,88 +1,88 @@
 <html>
-	<head>
-	    <title>Chat WebSocket</title>
-	    
-	    <script src="resources/js/sockjs-0.3.4.js"></script>
-	    <script src="resources/js/stomp.js"></script>
-	    
-	    <script type="text/javascript">
+<head>
+    <title>Chat WebSocket</title>
 
-	        var stompClient = null;
+    <script src="resources/js/sockjs-0.3.4.js"></script>
+    <script src="resources/js/stomp.js"></script>
 
-	        function setConnected(connected) {
+    <script type="text/javascript">
 
-	            document.getElementById('connect').disabled = connected;
-	            document.getElementById('disconnect').disabled = !connected;
-	            document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';
-	            document.getElementById('response').innerHTML = '';
-	        }
+        var stompClient = null;
 
-	        function connect() {
+        function setConnected(connected) {
 
-	            var socket = new SockJS('/game');
-	            stompClient = Stomp.over(socket);
+            document.getElementById('connect').disabled = connected;
+            document.getElementById('disconnect').disabled = !connected;
+            document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';
+            document.getElementById('response').innerHTML = '';
+        }
 
-	            stompClient.connect({}, function(frame) {
+        function connect() {
 
-	            	setConnected(true);
-	                console.log('Connected: ' + frame);
-	                stompClient.subscribe('/topic/messages', function(messageOutput) {
+            var socket = new SockJS('/chat');
+            stompClient = Stomp.over(socket);
 
-	                    showMessageOutput(JSON.parse(messageOutput.body));
-	                });
-	            });
-	        }
+            stompClient.connect({}, function (frame) {
 
-	        function disconnect() {
+                setConnected(true);
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/topic/messages', function (messageOutput) {
 
-	            if(stompClient != null) {
-	                stompClient.disconnect();
-	            }
+                    showMessageOutput(JSON.parse(messageOutput.body));
+                });
+            });
+        }
 
-	            setConnected(false);
-	            console.log("Disconnected");
-	        }
+        function disconnect() {
 
-	        function sendMessage() {
+            if (stompClient != null) {
+                stompClient.disconnect();
+            }
 
-	        	var from = document.getElementById('from').value;
-	            var text = document.getElementById('text').value;
-	            stompClient.send("/app/chat", {}, JSON.stringify({'from':from, 'text':text}));
-	        }
+            setConnected(false);
+            console.log("Disconnected");
+        }
 
-	        function showMessageOutput(messageOutput) {
+        function sendMessage() {
 
-	            var response = document.getElementById('response');
-	            var p = document.createElement('p');
-	            p.style.wordWrap = 'break-word';
-	            p.appendChild(document.createTextNode(messageOutput.from + ": " + messageOutput.text + " (" + messageOutput.time + ")"));
-	            response.appendChild(p);
-	        }
+            var from = document.getElementById('from').value;
+            var text = document.getElementById('text').value;
+            stompClient.send("/app/chat", {}, JSON.stringify({'from': from, 'text': text}));
+        }
 
-	    </script>
-	    
-	</head>
-	
-	<body onload="disconnect()">
+        function showMessageOutput(messageOutput) {
 
-		<div>
-		
-		
-			<div>
-				<input type="text" id="from" placeholder="Choose a nickname"/>
-			</div>
-			<br />
-		    <div>
-		        <button id="connect" onclick="connect();">Connect</button>
-		        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
-		    </div>
-		    <br />
-		    <div id="conversationDiv">
-		        <input type="text" id="text" placeholder="Write a message..."/>
-		        <button id="sendMessage" onclick="sendMessage();">Send</button>
-		        <p id="response"></p>
-		    </div>
-		</div>
+            var response = document.getElementById('response');
+            var p = document.createElement('p');
+            p.style.wordWrap = 'break-word';
+            p.appendChild(document.createTextNode(messageOutput.from + ": " + messageOutput.text + " (" + messageOutput.time + ")"));
+            response.appendChild(p);
+        }
 
-	</body>
+    </script>
+
+</head>
+
+<body onload="disconnect()">
+
+<div>
+
+
+    <div>
+        <input type="text" id="from" placeholder="Choose a nickname"/>
+    </div>
+    <br/>
+    <div>
+        <button id="connect" onclick="connect();">Connect</button>
+        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+    </div>
+    <br/>
+    <div id="conversationDiv">
+        <input type="text" id="text" placeholder="Write a message..."/>
+        <button id="sendMessage" onclick="sendMessage();">Send</button>
+        <p id="response"></p>
+    </div>
+</div>
+
+</body>
 </html>
