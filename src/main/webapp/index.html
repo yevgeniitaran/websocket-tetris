@@ -19,14 +19,14 @@
 
         function connect() {
 
-            var socket = new SockJS('/chat');
+            var socket = new SockJS('/tetris');
             stompClient = Stomp.over(socket);
 
             stompClient.connect({}, function (frame) {
 
                 setConnected(true);
                 console.log('Connected: ' + frame);
-                stompClient.subscribe('/topic/messages', function (messageOutput) {
+                stompClient.subscribe('/topic/game', function (messageOutput) {
 
                     showMessageOutput(JSON.parse(messageOutput.body));
                 });
@@ -44,18 +44,14 @@
         }
 
         function sendMessage() {
-
-            var from = document.getElementById('from').value;
-            var text = document.getElementById('text').value;
-            stompClient.send("/app/chat", {}, JSON.stringify({'from': from, 'text': text}));
+            stompClient.send("/app/tetris", {}, {});
         }
 
         function showMessageOutput(messageOutput) {
-
             var response = document.getElementById('response');
             var p = document.createElement('p');
             p.style.wordWrap = 'break-word';
-            p.appendChild(document.createTextNode(messageOutput.from + ": " + messageOutput.text + " (" + messageOutput.time + ")"));
+            p.appendChild(document.createTextNode(messageOutput.fieldId));
             response.appendChild(p);
         }
 
