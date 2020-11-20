@@ -88,4 +88,19 @@ public class Field {
         figureState = null;
         figureCenter = null;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder fieldAsString = new StringBuilder();
+        for (Cell[] cellsRow : cells) {
+            for (Cell cell : cellsRow) {
+                if (cell.getColor() != null) {
+                    fieldAsString.append(cell.getColor().toString().charAt(0));
+                }
+                fieldAsString.append("N");
+            }
+            fieldAsString.append(",");
+        }
+        return fieldAsString.toString();
+    }
 }

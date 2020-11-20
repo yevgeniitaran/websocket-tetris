@@ -2,17 +2,17 @@ package com.etaran.tetris.controller.dto;
 
 public class FieldDto {
 
-    private String fieldId;
+    private String field;
 
-    public FieldDto(String fieldId) {
-        this.fieldId = fieldId;
+    public FieldDto(String field) {
+        this.field = field;
     }
 
-    public String getFieldId() {
-        return fieldId;
+    public String getField() {
+        return field;
     }
 
-    public void setFieldId(String fieldId) {
-        this.fieldId = fieldId;
+    public void setField(String field) {
+        this.field = field;
     }
 }

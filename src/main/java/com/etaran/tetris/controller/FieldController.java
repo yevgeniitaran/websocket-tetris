@@ -13,7 +13,7 @@ public class FieldController {
     @SendTo("/topic/game")
     public FieldDto getField() {
         Field field = new Field();
-        return new FieldDto(field.getFieldId());
+        return new FieldDto(field.toString());
     }
 
 }
