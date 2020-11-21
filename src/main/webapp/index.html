@@ -49,10 +49,11 @@
 
         function showMessageOutput(messageOutput) {
             var response = document.getElementById('response');
-            var p = document.createElement('p');
-            p.style.wordWrap = 'break-word';
-            p.appendChild(document.createTextNode(messageOutput.field));
-            response.appendChild(p);
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext("2d");
+            ctx.fillStyle = "#FF0000";
+            ctx.fillRect(0, 0, 150, 75);
+            response.appendChild(canvas);
         }
 
     </script>
