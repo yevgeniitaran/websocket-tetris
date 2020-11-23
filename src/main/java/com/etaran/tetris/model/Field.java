@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Field {
 
     public static final int FIELD_WIDTH = 10;
-    public static final int FIELD_HEIGHT = 40;
+    public static final int FIELD_HEIGHT = 20;
 
     private final String fieldId = UUID.randomUUID().toString();
     private final Cell[][] cells = new Cell[FIELD_HEIGHT][FIELD_WIDTH];
@@ -96,8 +96,9 @@ public class Field {
             for (Cell cell : cellsRow) {
                 if (cell.getColor() != null) {
                     fieldAsString.append(cell.getColor().toString().charAt(0));
+                } else {
+                    fieldAsString.append("N");
                 }
-                fieldAsString.append("N");
             }
             fieldAsString.append(",");
         }

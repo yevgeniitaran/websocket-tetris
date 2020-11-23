@@ -48,11 +48,24 @@
         }
 
         function showMessageOutput(messageOutput) {
+
             var response = document.getElementById('response');
             var canvas = document.createElement('canvas');
+            canvas.widht = 300;
+            canvas.height = 600;
             var ctx = canvas.getContext("2d");
-            ctx.fillStyle = "#FF0000";
-            ctx.fillRect(0, 0, 150, 75);
+            ctx.fillStyle = "#1a1b1c";
+            ctx.fillRect(0, 0, 300, 600);
+            field = messageOutput.field.split(',')
+            for (let i = 0; i < field.length; i++) {
+                console.log(field[i])
+                for (let j = 0; j < field.length; j++) {
+                    if (field[i][j] !== 'N') {
+                        ctx.fillStyle = "#adc225";
+                        ctx.fillRect(2 + j * 30, 2 + i * 30, 26, 26);
+                    }
+                }
+            }
             response.appendChild(canvas);
         }
 
@@ -77,8 +90,9 @@
     <div id="conversationDiv">
         <input type="text" id="text" placeholder="Write a message..."/>
         <button id="sendMessage" onclick="sendMessage();">Send</button>
-        <p id="response"></p>
+
     </div>
+    <div id="response"></div>
 </div>
 
 </body>
