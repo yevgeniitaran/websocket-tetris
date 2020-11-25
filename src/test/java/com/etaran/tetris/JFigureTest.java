@@ -82,6 +82,7 @@ public class JFigureTest {
         assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER - 1][DrawService.FIELD_CENTER].isBusy());
         assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER + 1][DrawService.FIELD_CENTER].isBusy());
         assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER + 1][DrawService.FIELD_CENTER - 1].isBusy());
+
         assertEquals(DrawService.J_FIELD_VERTICAL_CENTER, fieldService.getField().getFigureCenter().x);
         assertEquals(DrawService.FIELD_CENTER, fieldService.getField().getFigureCenter().y);
     }

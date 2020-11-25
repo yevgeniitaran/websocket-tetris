@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 <head>
     <title>Chat WebSocket</title>
 
@@ -21,20 +21,17 @@
             });
         });
 
-        function sendMessage() {
-            stompClient.send("/app/tetris", {}, {});
-        }
-
         function showMessageOutput(messageOutput) {
 
-            var response = document.getElementById('response');
-            var canvas = document.createElement('canvas');
+            let response = document.getElementById('response');
+            let canvas = document.getElementById('canvas');
             canvas.widht = 300;
             canvas.height = 600;
-            var ctx = canvas.getContext("2d");
+            let ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#1a1b1c";
             ctx.fillRect(0, 0, 300, 600);
-            field = messageOutput.field.split(',')
+            let field = messageOutput.field.split(',')
             for (let i = 0; i < field.length; i++) {
                 console.log(field[i])
                 for (let j = 0; j < field.length; j++) {
@@ -55,10 +52,9 @@
 
 <div>
     <br/>
-    <div id="conversationDiv">
-        <button id="sendMessage" onclick="sendMessage();">Send</button>
+    <div id="response">
+        <canvas id="canvas"></canvas>
     </div>
-    <div id="response"></div>
 </div>
 
 </body>

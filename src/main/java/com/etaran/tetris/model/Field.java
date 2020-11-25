@@ -87,6 +87,7 @@ public class Field {
         figurePoints.clear();
         figureState = null;
         figureCenter = null;
+        figureCollapsed = false;
     }
 
     @Override
