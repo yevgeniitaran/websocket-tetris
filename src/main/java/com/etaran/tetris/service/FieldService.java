@@ -1,7 +1,8 @@
 package com.etaran.tetris.service;
 
+import com.etaran.tetris.controller.dto.Action;
 import com.etaran.tetris.model.Field;
-import com.etaran.tetris.model.Figure;
+import com.etaran.tetris.model.MoveDirection;
 import com.etaran.tetris.model.Point;
 import com.etaran.tetris.service.rotation.RotationService;
 import org.springframework.stereotype.Service;
@@ -36,22 +37,41 @@ public class FieldService {
         if (field.getCurrentFigure() == null) {
             produceNewFigure();
         } else {
-            moveCurrentFigure();
+            moveCurrentFigureToBottom();
             if (field.isFigureCollapsed()) {
                 field.clearFigure();
             }
         }
     }
 
-    private void moveCurrentFigure() {
+    private void moveCurrentFigureToBottom() {
         List<Point> movedPoints = new ArrayList<>();
         for (Point figurePoint : field.getFigurePoints()) {
-            if (figurePoint.x + 1 >= Field.FIELD_HEIGHT - 1) {
+            Point movedPoint = new Point(figurePoint.x + 1, figurePoint.y);
+            if (movedPoint.x >= Field.FIELD_HEIGHT - 1) {
                 field.setFigureCollapsed(true);
             }
-            movedPoints.add(new Point(figurePoint.x + 1, figurePoint.y));
+            movedPoints.add(movedPoint);
         }
 
+        redrawPoints(movedPoints);
+    }
+
+    private void moveCurrentFigure(MoveDirection direction) {
+        int yChange = direction == MoveDirection.LEFT ? -1 : 1;
+        List<Point> movedPoints = new ArrayList<>();
+        for (Point figurePoint : field.getFigurePoints()) {
+            Point movedPoint = new Point(figurePoint.x, figurePoint.y + yChange);
+            if (movedPoint.y < 0 || movedPoint.y >= Field.FIELD_WIDTH) {
+                return;
+            }
+            movedPoints.add(movedPoint);
+        }
+
+        redrawPoints(movedPoints);
+    }
+
+    private void redrawPoints(List<Point> movedPoints) {
         field.hideFigure();
         field.getFigurePoints().clear();
         field.getFigurePoints().addAll(movedPoints);
@@ -59,7 +79,21 @@ public class FieldService {
     }
 
 
+
+
     public Field getField() {
         return field;
+    }
+
+    public void performAction(Action action) {
+        if (action == Action.LEFT) {
+            moveCurrentFigure(MoveDirection.LEFT);
+            return;
+        }
+        if (action == Action.RIGHT) {
+            moveCurrentFigure(MoveDirection.RIGHT);
+            return;
+        }
+        throw new UnsupportedOperationException();
     }
 }

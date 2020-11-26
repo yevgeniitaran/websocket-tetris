@@ -1,6 +1,6 @@
 <html lang="en">
 <head>
-    <title>Chat WebSocket</title>
+    <title>Tetris</title>
 
     <script src="resources/js/sockjs-0.3.4.js"></script>
     <script src="resources/js/stomp.js"></script>
@@ -12,16 +12,15 @@
         var socket = new SockJS('/tetris');
         stompClient = Stomp.over(socket);
 
-        stompClient.connect({}, function (frame) {
+        stompClient.connect({}, function () {
 
-            console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/game', function (messageOutput) {
 
-                showMessageOutput(JSON.parse(messageOutput.body));
+                drawField(JSON.parse(messageOutput.body));
             });
         });
 
-        function showMessageOutput(messageOutput) {
+        function drawField(messageOutput) {
 
             let response = document.getElementById('response');
             let canvas = document.getElementById('canvas');
@@ -33,7 +32,6 @@
             ctx.fillRect(0, 0, 300, 600);
             let field = messageOutput.field.split(',')
             for (let i = 0; i < field.length; i++) {
-                console.log(field[i])
                 for (let j = 0; j < field.length; j++) {
                     if (field[i][j] !== 'N') {
                         ctx.fillStyle = "#adc225";
@@ -42,6 +40,16 @@
                 }
             }
             response.appendChild(canvas);
+        }
+
+        document.addEventListener('keypress', sendAction);
+        function sendAction(e) {
+            if (e.code === 'KeyA') {
+                stompClient.send("/app/tetris", {}, JSON.stringify({'action':'LEFT'}));
+            }
+            if (e.code === 'KeyD') {
+                stompClient.send("/app/tetris", {}, JSON.stringify({'action':'RIGHT'}));
+            }
         }
 
     </script>
