@@ -1,6 +1,5 @@
 package com.etaran.tetris.service;
 
-import com.etaran.tetris.model.Color;
 import com.etaran.tetris.model.Field;
 import com.etaran.tetris.model.Figure;
 import com.etaran.tetris.model.Point;
@@ -48,9 +47,9 @@ public class DrawService {
         field.setCurrentFigure(Figure.BLUE_J);
         field.setFigureCenter(new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER));
         field.getFigurePoints().add(new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER));
-        field.getFigurePoints().add(new Point(J_FIELD_VERTICAL_CENTER - 1, FIELD_CENTER));
-        field.getFigurePoints().add(new Point(J_FIELD_VERTICAL_CENTER + 1, FIELD_CENTER));
-        field.getFigurePoints().add(new Point(J_FIELD_VERTICAL_CENTER + 1, FIELD_CENTER - 1));
+        field.getFigurePoints().add(new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER + 1));
+        field.getFigurePoints().add(new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER - 1));
+        field.getFigurePoints().add(new Point(J_FIELD_VERTICAL_CENTER -1, FIELD_CENTER - 1));
         field.setFigureState(JFirstState.J_FIRST_STATE);
         field.showFigure();
     }
