@@ -88,14 +88,24 @@ public class JFigureTest {
     }
 
     @Test
-    void testPermanentCycle() {
+    void testCollision() {
         RandomFigureGenerator randomFigureGenerator = mock(RandomFigureGenerator.class);
         when(randomFigureGenerator.produceFigure()).thenReturn(Figure.BLUE_J);
 
         FieldService fieldService = new FieldService(new RotationService(new JRotationService()), new DrawService(), randomFigureGenerator);
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < Field.FIELD_HEIGHT - 1; i++) {
             fieldService.tick();
         }
+
+        for (int i = 0; i < Field.FIELD_HEIGHT - 5; i++) {
+            fieldService.tick();
+        }
+
+        //figure collide with figure
+        assertTrue(fieldService.getField().getCells()[Field.FIELD_HEIGHT - 4][DrawService.FIELD_CENTER].isBusy());
+        assertTrue(fieldService.getField().getCells()[Field.FIELD_HEIGHT - 5][DrawService.FIELD_CENTER].isBusy());
+        assertTrue(fieldService.getField().getCells()[Field.FIELD_HEIGHT - 6][DrawService.FIELD_CENTER].isBusy());
+        assertTrue(fieldService.getField().getCells()[Field.FIELD_HEIGHT - 4][DrawService.FIELD_CENTER - 1].isBusy());
     }
 }
 

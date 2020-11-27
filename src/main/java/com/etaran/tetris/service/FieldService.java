@@ -23,7 +23,7 @@ public class FieldService {
         this.randomFigureGenerator = randomFigureGenerator;
     }
 
-    Field field = new Field();
+    private final Field field = new Field();
 
     public void rotateFigure() {
         rotationService.rotateFigure(field);
@@ -38,37 +38,43 @@ public class FieldService {
             produceNewFigure();
         } else {
             moveCurrentFigureToBottom();
-            if (field.isFigureCollapsed()) {
-                field.clearFigure();
-            }
         }
     }
 
     private void moveCurrentFigureToBottom() {
         List<Point> movedPoints = new ArrayList<>();
-        for (Point figurePoint : field.getFigurePoints()) {
-            Point movedPoint = new Point(figurePoint.x + 1, figurePoint.y);
-            if (movedPoint.x >= Field.FIELD_HEIGHT - 1) {
-                field.setFigureCollapsed(true);
+        synchronized (field) {
+            for (Point figurePoint : field.getFigurePoints()) {
+                Point movedPoint = new Point(figurePoint.x + 1, figurePoint.y);
+                if (movedPoint.x >= Field.FIELD_HEIGHT - 1 || (field.getCells()[movedPoint.x + 1][movedPoint.y].isBusy()
+                        && !field.getFigurePoints().contains(movedPoint))) {
+                    field.setFigureCollapsed(true);
+                }
+                movedPoints.add(movedPoint);
             }
-            movedPoints.add(movedPoint);
+            redrawPoints(movedPoints);
         }
 
-        redrawPoints(movedPoints);
+        if (field.isFigureCollapsed()) {
+            field.clearCurrentFigure();
+        }
     }
 
     private void moveCurrentFigure(MoveDirection direction) {
         int yChange = direction == MoveDirection.LEFT ? -1 : 1;
-        List<Point> movedPoints = new ArrayList<>();
-        for (Point figurePoint : field.getFigurePoints()) {
-            Point movedPoint = new Point(figurePoint.x, figurePoint.y + yChange);
-            if (movedPoint.y < 0 || movedPoint.y >= Field.FIELD_WIDTH) {
-                return;
+        synchronized (field) {
+            List<Point> movedPoints = new ArrayList<>();
+            for (Point figurePoint : field.getFigurePoints()) {
+                Point movedPoint = new Point(figurePoint.x, figurePoint.y + yChange);
+                if (movedPoint.y < 0 || movedPoint.y >= Field.FIELD_WIDTH ||
+                        (field.getCells()[movedPoint.x][movedPoint.y].isBusy() && !field.getFigurePoints().contains(movedPoint))) {
+                    return;
+                }
+                movedPoints.add(movedPoint);
             }
-            movedPoints.add(movedPoint);
-        }
 
-        redrawPoints(movedPoints);
+            redrawPoints(movedPoints);
+        }
     }
 
     private void redrawPoints(List<Point> movedPoints) {
@@ -92,6 +98,10 @@ public class FieldService {
         }
         if (action == Action.RIGHT) {
             moveCurrentFigure(MoveDirection.RIGHT);
+            return;
+        }
+        if (action == Action.DOWN) {
+            moveCurrentFigureToBottom();
             return;
         }
         throw new UnsupportedOperationException();

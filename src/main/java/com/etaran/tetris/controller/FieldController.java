@@ -5,7 +5,6 @@ import com.etaran.tetris.controller.dto.FieldDto;
 import com.etaran.tetris.service.FieldService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -24,7 +23,7 @@ public class FieldController {
         this.template = template;
     }
 
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 500)
     public void fieldTick() {
         fieldService.tick();
         this.template.convertAndSend("/topic/game", new FieldDto(fieldService.getField().toString()));

@@ -82,7 +82,7 @@ public class Field {
         }
     }
 
-    public void clearFigure() {
+    public void clearCurrentFigure() {
         currentFigure = null;
         figurePoints.clear();
         figureState = null;
