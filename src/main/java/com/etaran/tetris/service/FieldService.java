@@ -23,7 +23,7 @@ public class FieldService {
         this.randomFigureGenerator = randomFigureGenerator;
     }
 
-    private final Field field = new Field();
+    private Field field = new Field();
 
     public void rotateFigure() {
         rotationService.rotateFigure(field);
@@ -34,10 +34,17 @@ public class FieldService {
     }
 
     public void tick() {
+        if (field.isGameEnded()) {
+            field = new Field();
+            return;
+        }
         if (field.getCurrentFigure() == null) {
             produceNewFigure();
         } else {
             moveCurrentFigureToBottom();
+        }
+        if (field.isGameEnded()) {
+            field = new Field();
         }
     }
 
@@ -84,13 +91,6 @@ public class FieldService {
         field.showFigure();
     }
 
-
-
-
-    public Field getField() {
-        return field;
-    }
-
     public void performAction(Action action) {
         if (action == Action.LEFT) {
             moveCurrentFigure(MoveDirection.LEFT);
@@ -105,5 +105,9 @@ public class FieldService {
             return;
         }
         throw new UnsupportedOperationException();
+    }
+
+    public Field getField() {
+        return field;
     }
 }

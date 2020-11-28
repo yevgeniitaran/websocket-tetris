@@ -17,6 +17,7 @@ public class Field {
     private Point figureCenter;
     private List<Point> figurePoints = new ArrayList<>();
     private boolean figureCollapsed;
+    private boolean isGameEnded;
 
     public Field() {
         for (Cell[] row : cells) {
@@ -62,6 +63,14 @@ public class Field {
 
     public boolean isFigureCollapsed() {
         return figureCollapsed;
+    }
+
+    public boolean isGameEnded() {
+        return isGameEnded;
+    }
+
+    public void setGameEnded(boolean gameEnded) {
+        isGameEnded = gameEnded;
     }
 
     public void setFigureCollapsed(boolean figureCollapsed) {

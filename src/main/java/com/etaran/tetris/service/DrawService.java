@@ -6,6 +6,9 @@ import com.etaran.tetris.model.Point;
 import com.etaran.tetris.model.states.j.JFirstState;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class DrawService {
 
@@ -46,10 +49,17 @@ public class DrawService {
         field.getFigurePoints().clear();
         field.setCurrentFigure(Figure.BLUE_J);
         field.setFigureCenter(new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER));
-        field.getFigurePoints().add(new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER));
-        field.getFigurePoints().add(new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER + 1));
-        field.getFigurePoints().add(new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER - 1));
-        field.getFigurePoints().add(new Point(J_FIELD_VERTICAL_CENTER -1, FIELD_CENTER - 1));
+        List<Point> figurePoints = new ArrayList<>();
+        figurePoints.add(new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER));
+        figurePoints.add(new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER + 1));
+        figurePoints.add(new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER - 1));
+        figurePoints.add(new Point(J_FIELD_VERTICAL_CENTER -1, FIELD_CENTER - 1));
+        for (Point point : figurePoints) {
+            if (field.getCells()[point.x][point.y].isBusy()) {
+                field.setGameEnded(true);
+            }
+        }
+        field.getFigurePoints().addAll(figurePoints);
         field.setFigureState(JFirstState.J_FIRST_STATE);
         field.showFigure();
     }
