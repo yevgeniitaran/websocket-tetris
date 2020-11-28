@@ -2,7 +2,9 @@ package com.etaran.tetris;
 
 import com.etaran.tetris.model.Field;
 import com.etaran.tetris.model.Figure;
-import com.etaran.tetris.service.DrawService;
+import com.etaran.tetris.service.draw.DrawJService;
+import com.etaran.tetris.service.draw.DrawOService;
+import com.etaran.tetris.service.draw.DrawService;
 import com.etaran.tetris.service.FieldService;
 import com.etaran.tetris.service.RandomFigureGenerator;
 import com.etaran.tetris.service.rotation.JRotationService;
@@ -20,7 +22,8 @@ public class JFigureTest {
         RandomFigureGenerator randomFigureGenerator = mock(RandomFigureGenerator.class);
         when(randomFigureGenerator.produceFigure()).thenReturn(Figure.BLUE_J);
 
-        FieldService fieldService = new FieldService(new RotationService(new JRotationService()), new DrawService(), randomFigureGenerator);
+        FieldService fieldService = new FieldService(new RotationService(new JRotationService()),
+                new DrawService(new DrawJService(), new DrawOService()), randomFigureGenerator);
         fieldService.tick();
 
         assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER][DrawService.FIELD_CENTER].isBusy());
@@ -36,7 +39,8 @@ public class JFigureTest {
         RandomFigureGenerator randomFigureGenerator = mock(RandomFigureGenerator.class);
         when(randomFigureGenerator.produceFigure()).thenReturn(Figure.BLUE_J);
 
-        FieldService fieldService = new FieldService(new RotationService(new JRotationService()), new DrawService(), randomFigureGenerator);
+        FieldService fieldService = new FieldService(new RotationService(new JRotationService()),
+                new DrawService(new DrawJService(), new DrawOService()), randomFigureGenerator);
         fieldService.tick();
         fieldService.tick();
         assertFalse(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER - 1][DrawService.FIELD_CENTER].isBusy());
@@ -51,7 +55,8 @@ public class JFigureTest {
         RandomFigureGenerator randomFigureGenerator = mock(RandomFigureGenerator.class);
         when(randomFigureGenerator.produceFigure()).thenReturn(Figure.BLUE_J);
 
-        FieldService fieldService = new FieldService(new RotationService(new JRotationService()), new DrawService(), randomFigureGenerator);
+        FieldService fieldService = new FieldService(new RotationService(new JRotationService()),
+                new DrawService(new DrawJService(), new DrawOService()), randomFigureGenerator);
         for (int i = 0; i < Field.FIELD_HEIGHT - 1; i++) {
             fieldService.tick();
         }
@@ -67,7 +72,7 @@ public class JFigureTest {
         RandomFigureGenerator randomFigureGenerator = mock(RandomFigureGenerator.class);
         when(randomFigureGenerator.produceFigure()).thenReturn(Figure.BLUE_J);
 
-        FieldService fieldService = new FieldService(new RotationService(new JRotationService()), new DrawService(), randomFigureGenerator);
+        FieldService fieldService = new FieldService(new RotationService(new JRotationService()), new DrawService(new DrawJService(), new DrawOService()), randomFigureGenerator);
         for (int i = 0; i < Field.FIELD_HEIGHT; i++) {
             fieldService.tick();
         }
@@ -92,7 +97,7 @@ public class JFigureTest {
         RandomFigureGenerator randomFigureGenerator = mock(RandomFigureGenerator.class);
         when(randomFigureGenerator.produceFigure()).thenReturn(Figure.BLUE_J);
 
-        FieldService fieldService = new FieldService(new RotationService(new JRotationService()), new DrawService(), randomFigureGenerator);
+        FieldService fieldService = new FieldService(new RotationService(new JRotationService()), new DrawService(new DrawJService(), new DrawOService()), randomFigureGenerator);
         for (int i = 0; i < Field.FIELD_HEIGHT - 1; i++) {
             fieldService.tick();
         }

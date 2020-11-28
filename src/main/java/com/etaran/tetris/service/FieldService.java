@@ -4,6 +4,7 @@ import com.etaran.tetris.controller.dto.Action;
 import com.etaran.tetris.model.Field;
 import com.etaran.tetris.model.MoveDirection;
 import com.etaran.tetris.model.Point;
+import com.etaran.tetris.service.draw.DrawService;
 import com.etaran.tetris.service.rotation.RotationService;
 import org.springframework.stereotype.Service;
 
