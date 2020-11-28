@@ -55,7 +55,7 @@ public class DrawService {
         figurePoints.add(new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER - 1));
         figurePoints.add(new Point(J_FIELD_VERTICAL_CENTER -1, FIELD_CENTER - 1));
         for (Point point : figurePoints) {
-            if (field.getCells()[point.x][point.y].isBusy()) {
+            if (field.getCells()[point.x][point.y].isBusy() || field.isPointCollapsed(point)) {
                 field.setGameEnded(true);
             }
         }

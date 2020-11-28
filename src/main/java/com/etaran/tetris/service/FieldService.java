@@ -43,9 +43,6 @@ public class FieldService {
         } else {
             moveCurrentFigureToBottom();
         }
-        if (field.isGameEnded()) {
-            field = new Field();
-        }
     }
 
     private void moveCurrentFigureToBottom() {
@@ -53,8 +50,7 @@ public class FieldService {
         synchronized (field) {
             for (Point figurePoint : field.getFigurePoints()) {
                 Point movedPoint = new Point(figurePoint.x + 1, figurePoint.y);
-                if (movedPoint.x >= Field.FIELD_HEIGHT - 1 || (field.getCells()[movedPoint.x + 1][movedPoint.y].isBusy()
-                        && !field.getFigurePoints().contains(movedPoint))) {
+                if (field.isPointCollapsed(movedPoint)) {
                     field.setFigureCollapsed(true);
                 }
                 movedPoints.add(movedPoint);

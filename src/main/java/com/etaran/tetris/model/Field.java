@@ -114,4 +114,9 @@ public class Field {
         }
         return fieldAsString.toString();
     }
+
+    public boolean isPointCollapsed(Point movedPoint) {
+        return movedPoint.x >= Field.FIELD_HEIGHT - 1 || (cells[movedPoint.x + 1][movedPoint.y].isBusy()
+                && !figurePoints.contains(movedPoint));
+    }
 }
