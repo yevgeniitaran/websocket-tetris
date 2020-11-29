@@ -9,7 +9,9 @@ import com.etaran.tetris.service.rotation.RotationService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class FieldService {
@@ -60,6 +62,7 @@ public class FieldService {
         }
 
         if (field.isFigureCollapsed()) {
+            clearLines();
             field.clearCurrentFigure();
         }
     }
@@ -78,6 +81,30 @@ public class FieldService {
             }
 
             redrawPoints(movedPoints);
+        }
+    }
+
+    private void clearLines() {
+        Set<Integer> rowsForCheck = new HashSet<>();
+        for (Point figurePoint : field.getFigurePoints()) {
+            rowsForCheck.add(figurePoint.x);
+        }
+        for (Integer rowNumber : rowsForCheck) {
+            boolean rowComplete = true;
+            for (int i = 0; i < Field.FIELD_WIDTH; i++) {
+                if (!field.getCells()[rowNumber][i].isBusy()) {
+                    rowComplete = false;
+                }
+            }
+            if (rowComplete) {
+                for (int i = rowNumber; i < Field.FIELD_HEIGHT; i++) {
+                    field.getCells()[i] = field.getCells()[i + 1];
+                }
+                for (int i = 0; i < Field.FIELD_WIDTH; i++) {
+                    field.getCells()[0][i].setBusy(false);
+                    field.getCells()[0][i].setColor(null);
+                }
+            }
         }
     }
 
