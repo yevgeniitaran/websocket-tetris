@@ -97,8 +97,8 @@ public class FieldService {
                 }
             }
             if (rowComplete) {
-                for (int i = rowNumber; i < Field.FIELD_HEIGHT; i++) {
-                    field.getCells()[i] = field.getCells()[i + 1];
+                for (int i = rowNumber; i > 1; i--) {
+                    field.getCells()[i] = field.getCells()[i - 1];
                 }
                 for (int i = 0; i < Field.FIELD_WIDTH; i++) {
                     field.getCells()[0][i].setBusy(false);
