@@ -79,16 +79,21 @@ public class Field {
 
     public void showFigure() {
         for (Point figurePoint : figurePoints) {
-            cells[figurePoint.x][figurePoint.y].setBusy(true);
-            cells[figurePoint.x][figurePoint.y].setColor(currentFigure.getColor());
+            cells[figurePoint.x][figurePoint.y].setBusy(true, currentFigure.getColor());
         }
     }
 
     public void hideFigure() {
         for (Point figurePoint : figurePoints) {
-            cells[figurePoint.x][figurePoint.y].setBusy(false);
-            cells[figurePoint.x][figurePoint.y].setColor(null);
+            cells[figurePoint.x][figurePoint.y].setBusy(false, null);
         }
+    }
+
+    public void redrawFigure(List<Point> movedPoints) {
+        hideFigure();
+        getFigurePoints().clear();
+        getFigurePoints().addAll(movedPoints);
+        showFigure();
     }
 
     public void clearCurrentFigure() {

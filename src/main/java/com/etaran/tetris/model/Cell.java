@@ -9,15 +9,13 @@ public class Cell {
         return busy;
     }
 
-    public void setBusy(boolean busy) {
-        this.busy = busy;
-    }
 
     public Color getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
+    public void setBusy(boolean busy, Color color) {
+        this.busy = busy;
         this.color = color;
     }
 }

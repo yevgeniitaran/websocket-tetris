@@ -10,12 +10,9 @@ import java.util.function.Consumer;
 @Service
 public class RotationService {
 
-    private final JRotationService jRotationService;
-
     private final Map<Shape, Consumer<Field>> rotationProcessorsMap;
 
     public RotationService(JRotationService jRotationService) {
-        this.jRotationService = jRotationService;
         rotationProcessorsMap = Map.of(
                 Shape.J, jRotationService::rotateFigure
         );

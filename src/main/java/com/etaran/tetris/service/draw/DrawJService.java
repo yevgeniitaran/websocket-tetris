@@ -23,6 +23,6 @@ public class DrawJService extends AbstractDrawService {
         figurePoints.add(new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER - 1));
         figurePoints.add(new Point(J_FIELD_VERTICAL_CENTER -1, FIELD_CENTER - 1));
         setFigureData(field, Figure.BLUE_J, new Point(J_FIELD_VERTICAL_CENTER, FIELD_CENTER),
-                figurePoints, JFirstState.J_FIRST_STATE);
+                figurePoints, JFirstState.INSTANCE);
     }
 }

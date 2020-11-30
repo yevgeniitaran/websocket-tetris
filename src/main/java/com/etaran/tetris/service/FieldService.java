@@ -28,10 +28,6 @@ public class FieldService {
 
     private Field field = new Field();
 
-    public void rotateFigure() {
-        rotationService.rotateFigure(field);
-    }
-
     public void produceNewFigure() {
         drawService.drawFigure(field, randomFigureGenerator.produceFigure());
     }
@@ -58,7 +54,8 @@ public class FieldService {
                 }
                 movedPoints.add(movedPoint);
             }
-            redrawPoints(movedPoints);
+            field.setFigureCenter(new Point(field.getFigureCenter().x + 1, field.getFigureCenter().y));
+            field.redrawFigure(movedPoints);
         }
 
         if (field.isFigureCollapsed()) {
@@ -80,7 +77,7 @@ public class FieldService {
                 movedPoints.add(movedPoint);
             }
 
-            redrawPoints(movedPoints);
+            field.redrawFigure(movedPoints);
         }
     }
 
@@ -101,34 +98,26 @@ public class FieldService {
                     field.getCells()[i] = field.getCells()[i - 1];
                 }
                 for (int i = 0; i < Field.FIELD_WIDTH; i++) {
-                    field.getCells()[0][i].setBusy(false);
-                    field.getCells()[0][i].setColor(null);
+                    field.getCells()[0][i].setBusy(false, null);
                 }
             }
         }
     }
 
-    private void redrawPoints(List<Point> movedPoints) {
-        field.hideFigure();
-        field.getFigurePoints().clear();
-        field.getFigurePoints().addAll(movedPoints);
-        field.showFigure();
-    }
+
 
     public void performAction(Action action) {
         if (action == Action.LEFT) {
             moveCurrentFigure(MoveDirection.LEFT);
-            return;
-        }
-        if (action == Action.RIGHT) {
+        } else if (action == Action.RIGHT) {
             moveCurrentFigure(MoveDirection.RIGHT);
-            return;
-        }
-        if (action == Action.DOWN) {
+        } else if (action == Action.DOWN) {
             moveCurrentFigureToBottom();
-            return;
+        } else if (action == Action.ROTATE) {
+            rotationService.rotateFigure(field);
+        } else {
+            throw new UnsupportedOperationException();
         }
-        throw new UnsupportedOperationException();
     }
 
     public Field getField() {

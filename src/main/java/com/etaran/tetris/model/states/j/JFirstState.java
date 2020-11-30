@@ -2,14 +2,19 @@ package com.etaran.tetris.model.states.j;
 
 import com.etaran.tetris.model.FigureState;
 
+/**
+ * Y__
+ * YYY
+ * ___
+ */
 public class JFirstState implements FigureState {
 
     private JFirstState() {}
 
-    public static final JFirstState J_FIRST_STATE = new JFirstState();
+    public static final JFirstState INSTANCE = new JFirstState();
 
     @Override
     public FigureState nextState() {
-        return JSecondState.J_SECOND_STATE;
+        return JSecondState.INSTANCE;
     }
 }
