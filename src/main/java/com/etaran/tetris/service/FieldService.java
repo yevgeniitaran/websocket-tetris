@@ -1,6 +1,7 @@
 package com.etaran.tetris.service;
 
 import com.etaran.tetris.controller.dto.Action;
+import com.etaran.tetris.model.Cell;
 import com.etaran.tetris.model.Field;
 import com.etaran.tetris.model.MoveDirection;
 import com.etaran.tetris.model.Point;
@@ -33,6 +34,10 @@ public class FieldService {
     }
 
     public void tick() {
+        if (field.isFigureCollapsed()) {
+            clearLines();
+            field.clearCurrentFigure();
+        }
         if (field.isGameEnded()) {
             field = new Field();
             return;
@@ -45,22 +50,19 @@ public class FieldService {
     }
 
     private void moveCurrentFigureToBottom() {
+        if (field.isFigureCollapsed()) {
+            clearLines();
+            field.clearCurrentFigure();
+            return;
+        }
         List<Point> movedPoints = new ArrayList<>();
         synchronized (field) {
             for (Point figurePoint : field.getFigurePoints()) {
                 Point movedPoint = new Point(figurePoint.x + 1, figurePoint.y);
-                if (field.isPointCollapsed(movedPoint)) {
-                    field.setFigureCollapsed(true);
-                }
                 movedPoints.add(movedPoint);
             }
             field.setFigureCenter(new Point(field.getFigureCenter().x + 1, field.getFigureCenter().y));
             field.redrawFigure(movedPoints);
-        }
-
-        if (field.isFigureCollapsed()) {
-            clearLines();
-            field.clearCurrentFigure();
         }
     }
 
@@ -70,13 +72,12 @@ public class FieldService {
             List<Point> movedPoints = new ArrayList<>();
             for (Point figurePoint : field.getFigurePoints()) {
                 Point movedPoint = new Point(figurePoint.x, figurePoint.y + yChange);
-                if (movedPoint.y < 0 || movedPoint.y >= Field.FIELD_WIDTH ||
-                        (field.getCells()[movedPoint.x][movedPoint.y].isBusy() && !field.getFigurePoints().contains(movedPoint))) {
+                if (field.isPointBusy(movedPoint)) {
                     return;
                 }
                 movedPoints.add(movedPoint);
             }
-
+            field.setFigureCenter(new Point(field.getFigureCenter().x, field.getFigureCenter().y + yChange));
             field.redrawFigure(movedPoints);
         }
     }
@@ -97,9 +98,13 @@ public class FieldService {
                 for (int i = rowNumber; i > 1; i--) {
                     field.getCells()[i] = field.getCells()[i - 1];
                 }
-                for (int i = 0; i < Field.FIELD_WIDTH; i++) {
-                    field.getCells()[0][i].setBusy(false, null);
+                for (int rowNum = 0; rowNum <= 1; rowNum++) {
+                    field.getCells()[rowNum] = new Cell[Field.FIELD_WIDTH];
+                    for (int i = 0; i < Field.FIELD_WIDTH; i++) {
+                        field.getCells()[rowNum][i] = new Cell();
+                    }
                 }
+
             }
         }
     }
@@ -107,6 +112,9 @@ public class FieldService {
 
 
     public void performAction(Action action) {
+        if (field.getCurrentFigure() == null) {
+            return;
+        }
         if (action == Action.LEFT) {
             moveCurrentFigure(MoveDirection.LEFT);
         } else if (action == Action.RIGHT) {

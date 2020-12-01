@@ -62,6 +62,12 @@ public class Field {
     }
 
     public boolean isFigureCollapsed() {
+        boolean figureCollapsed = false;
+        for (Point figurePoint : figurePoints) {
+            if (isPointCollapsed(figurePoint)) {
+                figureCollapsed = true;
+            }
+        }
         return figureCollapsed;
     }
 
@@ -71,10 +77,6 @@ public class Field {
 
     public void setGameEnded(boolean gameEnded) {
         isGameEnded = gameEnded;
-    }
-
-    public void setFigureCollapsed(boolean figureCollapsed) {
-        this.figureCollapsed = figureCollapsed;
     }
 
     public void showFigure() {
@@ -121,7 +123,13 @@ public class Field {
     }
 
     public boolean isPointCollapsed(Point movedPoint) {
-        return movedPoint.x >= Field.FIELD_HEIGHT - 1 || (cells[movedPoint.x + 1][movedPoint.y].isBusy()
-                && !figurePoints.contains(movedPoint));
+        Point pointBelow = new Point(movedPoint.x + 1, movedPoint.y);
+        return movedPoint.x >= Field.FIELD_HEIGHT - 1 || (cells[pointBelow.x][pointBelow.y].isBusy()
+                && !figurePoints.contains(pointBelow));
+    }
+
+    public boolean isPointBusy(Point point) {
+        return point.y < 0 || point.y >= Field.FIELD_WIDTH ||
+                (cells[point.x][point.y].isBusy() && !figurePoints.contains(point));
     }
 }

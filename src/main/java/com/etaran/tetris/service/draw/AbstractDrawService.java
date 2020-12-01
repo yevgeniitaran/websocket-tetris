@@ -22,7 +22,6 @@ public abstract class AbstractDrawService {
         field.setCurrentFigure(figure);
         field.setFigureState(figureState);
         field.setGameEnded(isGameEnded(field, figurePoints));
-        field.setFigureCollapsed(field.isGameEnded());
 
         field.getFigurePoints().clear();
         field.getFigurePoints().addAll(figurePoints);
