@@ -94,17 +94,18 @@ public class FieldService {
                     rowComplete = false;
                 }
             }
-            if (rowComplete) {
-                for (int i = rowNumber; i > 1; i--) {
-                    field.getCells()[i] = field.getCells()[i - 1];
-                }
-                for (int rowNum = 0; rowNum <= 1; rowNum++) {
-                    field.getCells()[rowNum] = new Cell[Field.FIELD_WIDTH];
-                    for (int i = 0; i < Field.FIELD_WIDTH; i++) {
-                        field.getCells()[rowNum][i] = new Cell();
+            synchronized (field) {
+                if (rowComplete) {
+                    for (int i = rowNumber; i > 1; i--) {
+                        field.getCells()[i] = field.getCells()[i - 1];
+                    }
+                    for (int rowNum = 0; rowNum <= 1; rowNum++) {
+                        field.getCells()[rowNum] = new Cell[Field.FIELD_WIDTH];
+                        for (int i = 0; i < Field.FIELD_WIDTH; i++) {
+                            field.getCells()[rowNum][i] = new Cell();
+                        }
                     }
                 }
-
             }
         }
     }
