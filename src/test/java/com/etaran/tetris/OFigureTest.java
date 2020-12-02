@@ -8,8 +8,10 @@ import com.etaran.tetris.service.RandomFigureGenerator;
 import com.etaran.tetris.service.draw.DrawJService;
 import com.etaran.tetris.service.draw.DrawOService;
 import com.etaran.tetris.service.draw.DrawService;
+import com.etaran.tetris.service.draw.DrawZService;
 import com.etaran.tetris.service.rotation.JRotationService;
 import com.etaran.tetris.service.rotation.RotationService;
+import com.etaran.tetris.service.rotation.ZRotationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,8 +28,8 @@ public class OFigureTest {
         RandomFigureGenerator randomFigureGenerator = mock(RandomFigureGenerator.class);
         when(randomFigureGenerator.produceFigure()).thenReturn(Figure.YELLOW_O);
 
-        fieldService = new FieldService(new RotationService(new JRotationService()),
-                new DrawService(new DrawJService(), new DrawOService()), randomFigureGenerator);
+        fieldService = new FieldService(new RotationService(new JRotationService(), new ZRotationService()),
+                new DrawService(new DrawJService(), new DrawOService(), new DrawZService()), randomFigureGenerator);
     }
 
     @Test

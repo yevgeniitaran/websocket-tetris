@@ -129,7 +129,7 @@ public class Field {
     }
 
     public boolean isPointBusy(Point point) {
-        return point.y < 0 || point.y >= Field.FIELD_WIDTH ||
-                (cells[point.x][point.y].isBusy() && !figurePoints.contains(point));
+        return point.y < 0 || point.y >= Field.FIELD_WIDTH || point.x >= FIELD_HEIGHT ||
+                (cells[point.x][point.y].isBusy() && !figurePoints.contains(point)) ;
     }
 }

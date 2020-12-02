@@ -7,9 +7,10 @@ import com.etaran.tetris.service.draw.DrawOService;
 import com.etaran.tetris.service.draw.DrawService;
 import com.etaran.tetris.service.FieldService;
 import com.etaran.tetris.service.RandomFigureGenerator;
+import com.etaran.tetris.service.draw.DrawZService;
 import com.etaran.tetris.service.rotation.JRotationService;
 import com.etaran.tetris.service.rotation.RotationService;
-import org.junit.jupiter.api.BeforeAll;
+import com.etaran.tetris.service.rotation.ZRotationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,19 +27,19 @@ public class JFigureTest {
         RandomFigureGenerator randomFigureGenerator = mock(RandomFigureGenerator.class);
         when(randomFigureGenerator.produceFigure()).thenReturn(Figure.BLUE_J);
 
-        fieldService = new FieldService(new RotationService(new JRotationService()),
-                new DrawService(new DrawJService(), new DrawOService()), randomFigureGenerator);
+        fieldService = new FieldService(new RotationService(new JRotationService(), new ZRotationService()),
+                new DrawService(new DrawJService(), new DrawOService(), new DrawZService()), randomFigureGenerator);
     }
 
     @Test
     void J_draw_processedSuccessfully() {
         fieldService.tick();
 
-        assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER][DrawService.FIELD_CENTER].isBusy());
-        assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER][DrawService.FIELD_CENTER + 1].isBusy());
-        assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER][DrawService.FIELD_CENTER - 1].isBusy());
-        assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER - 1][DrawService.FIELD_CENTER - 1].isBusy());
-        assertEquals(DrawService.J_FIELD_VERTICAL_CENTER, fieldService.getField().getFigureCenter().x);
+        assertTrue(fieldService.getField().getCells()[DrawService.FIGURE_ON_APPEARANCE_CENTER][DrawService.FIELD_CENTER].isBusy());
+        assertTrue(fieldService.getField().getCells()[DrawService.FIGURE_ON_APPEARANCE_CENTER][DrawService.FIELD_CENTER + 1].isBusy());
+        assertTrue(fieldService.getField().getCells()[DrawService.FIGURE_ON_APPEARANCE_CENTER][DrawService.FIELD_CENTER - 1].isBusy());
+        assertTrue(fieldService.getField().getCells()[DrawService.FIGURE_ON_APPEARANCE_CENTER - 1][DrawService.FIELD_CENTER - 1].isBusy());
+        assertEquals(DrawService.FIGURE_ON_APPEARANCE_CENTER, fieldService.getField().getFigureCenter().x);
         assertEquals(DrawService.FIELD_CENTER, fieldService.getField().getFigureCenter().y);
     }
 
@@ -46,11 +47,11 @@ public class JFigureTest {
     void J_moves_successfully() {
         fieldService.tick();
         fieldService.tick();
-        assertFalse(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER - 1][DrawService.FIELD_CENTER].isBusy());
-        assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER + 1][DrawService.FIELD_CENTER].isBusy());
-        assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER + 1][DrawService.FIELD_CENTER + 1].isBusy());
-        assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER + 1][DrawService.FIELD_CENTER - 1].isBusy());
-        assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER][DrawService.FIELD_CENTER - 1].isBusy());
+        assertFalse(fieldService.getField().getCells()[DrawService.FIGURE_ON_APPEARANCE_CENTER - 1][DrawService.FIELD_CENTER].isBusy());
+        assertTrue(fieldService.getField().getCells()[DrawService.FIGURE_ON_APPEARANCE_CENTER + 1][DrawService.FIELD_CENTER].isBusy());
+        assertTrue(fieldService.getField().getCells()[DrawService.FIGURE_ON_APPEARANCE_CENTER + 1][DrawService.FIELD_CENTER + 1].isBusy());
+        assertTrue(fieldService.getField().getCells()[DrawService.FIGURE_ON_APPEARANCE_CENTER + 1][DrawService.FIELD_CENTER - 1].isBusy());
+        assertTrue(fieldService.getField().getCells()[DrawService.FIGURE_ON_APPEARANCE_CENTER][DrawService.FIELD_CENTER - 1].isBusy());
     }
 
     @Test
@@ -77,12 +78,12 @@ public class JFigureTest {
         assertTrue(fieldService.getField().getCells()[Field.FIELD_HEIGHT - 2][DrawService.FIELD_CENTER - 1].isBusy());
 
         //figure at the top
-        assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER][DrawService.FIELD_CENTER].isBusy());
-        assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER][DrawService.FIELD_CENTER + 1].isBusy());
-        assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER][DrawService.FIELD_CENTER - 1].isBusy());
-        assertTrue(fieldService.getField().getCells()[DrawService.J_FIELD_VERTICAL_CENTER - 1][DrawService.FIELD_CENTER - 1].isBusy());
+        assertTrue(fieldService.getField().getCells()[DrawService.FIGURE_ON_APPEARANCE_CENTER][DrawService.FIELD_CENTER].isBusy());
+        assertTrue(fieldService.getField().getCells()[DrawService.FIGURE_ON_APPEARANCE_CENTER][DrawService.FIELD_CENTER + 1].isBusy());
+        assertTrue(fieldService.getField().getCells()[DrawService.FIGURE_ON_APPEARANCE_CENTER][DrawService.FIELD_CENTER - 1].isBusy());
+        assertTrue(fieldService.getField().getCells()[DrawService.FIGURE_ON_APPEARANCE_CENTER - 1][DrawService.FIELD_CENTER - 1].isBusy());
 
-        assertEquals(DrawService.J_FIELD_VERTICAL_CENTER, fieldService.getField().getFigureCenter().x);
+        assertEquals(DrawService.FIGURE_ON_APPEARANCE_CENTER, fieldService.getField().getFigureCenter().x);
         assertEquals(DrawService.FIELD_CENTER, fieldService.getField().getFigureCenter().y);
     }
 
