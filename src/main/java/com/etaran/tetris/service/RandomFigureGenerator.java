@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 public class RandomFigureGenerator {
 
     public Figure produceFigure() {
-        return Figure.RED_Z;
+        return Figure.GREEN_S;
     }
 }

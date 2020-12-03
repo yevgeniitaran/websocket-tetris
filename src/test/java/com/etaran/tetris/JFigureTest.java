@@ -2,12 +2,9 @@ package com.etaran.tetris;
 
 import com.etaran.tetris.model.Field;
 import com.etaran.tetris.model.Figure;
-import com.etaran.tetris.service.draw.DrawJService;
-import com.etaran.tetris.service.draw.DrawOService;
-import com.etaran.tetris.service.draw.DrawService;
+import com.etaran.tetris.service.draw.*;
 import com.etaran.tetris.service.FieldService;
 import com.etaran.tetris.service.RandomFigureGenerator;
-import com.etaran.tetris.service.draw.DrawZService;
 import com.etaran.tetris.service.rotation.JRotationService;
 import com.etaran.tetris.service.rotation.RotationService;
 import com.etaran.tetris.service.rotation.ZRotationService;
@@ -28,7 +25,7 @@ public class JFigureTest {
         when(randomFigureGenerator.produceFigure()).thenReturn(Figure.BLUE_J);
 
         fieldService = new FieldService(new RotationService(new JRotationService(), new ZRotationService()),
-                new DrawService(new DrawJService(), new DrawOService(), new DrawZService()), randomFigureGenerator);
+                new DrawService(new DrawJService(), new DrawOService(), new DrawZService(), new DrawSService()), randomFigureGenerator);
     }
 
     @Test
