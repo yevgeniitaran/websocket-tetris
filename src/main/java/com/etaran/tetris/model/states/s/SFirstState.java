@@ -3,9 +3,9 @@ package com.etaran.tetris.model.states.s;
 import com.etaran.tetris.model.FigureState;
 
 /**
- * _X_
  * _XX
- * __X
+ * XX_
+ * ___
  */
 public class SFirstState implements FigureState {
 

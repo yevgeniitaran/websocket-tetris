@@ -12,10 +12,13 @@ public class RotationService {
 
     private final Map<Shape, Consumer<Field>> rotationProcessorsMap;
 
-    public RotationService(JRotationService jRotationService, ZRotationService zRotationService) {
+    public RotationService(JRotationService jRotationService, ZRotationService zRotationService, SRotationService sRotationService,
+                           TRotationService tRotationService) {
         rotationProcessorsMap = Map.of(
                 Shape.J, jRotationService::rotateFigure,
-                Shape.Z, zRotationService::rotateFigure
+                Shape.Z, zRotationService::rotateFigure,
+                Shape.S, sRotationService::rotateFigure,
+                Shape.T, tRotationService::rotateFigure
         );
     }
 
