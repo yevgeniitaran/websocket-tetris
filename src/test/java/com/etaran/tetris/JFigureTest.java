@@ -23,9 +23,9 @@ public class JFigureTest {
         when(randomFigureGenerator.produceFigure()).thenReturn(Figure.BLUE_J);
 
         fieldService = new FieldService(new RotationService(new JRotationService(), new ZRotationService(),
-                new SRotationService(), new TRotationService()),
+                new SRotationService(), new TRotationService(), new IRotationService()),
                 new DrawService(new DrawJService(), new DrawOService(), new DrawZService(), new DrawSService(),
-                        new DrawTService()), randomFigureGenerator);
+                        new DrawTService(), new DrawIService()), randomFigureGenerator);
     }
 
     @Test
