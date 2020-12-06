@@ -24,8 +24,9 @@ public class OFigureTest {
         when(randomFigureGenerator.produceFigure()).thenReturn(Figure.YELLOW_O);
 
         fieldService = new FieldService(new RotationService(new JRotationService(), new ZRotationService(),
-                new SRotationService(), new TRotationService(), new IRotationService()),
-                new DrawService(new DrawJService(), new DrawOService(), new DrawZService(), new DrawSService(), new DrawTService(), new DrawIService()), randomFigureGenerator);
+                new SRotationService(), new TRotationService(), new IRotationService(), new LRotationService()),
+                new DrawService(new DrawJService(), new DrawOService(), new DrawZService(), new DrawSService(),
+                        new DrawTService(), new DrawIService(), new DrawLService()), randomFigureGenerator);
     }
 
     @Test

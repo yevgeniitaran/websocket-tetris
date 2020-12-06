@@ -16,15 +16,17 @@ public class DrawService {
     private final DrawSService drawSService;
     private final DrawTService drawTService;
     private final DrawIService drawIService;
+    private final DrawLService drawLService;
 
     public DrawService(DrawJService drawJService, DrawOService drawOSerivce, DrawZService drawZService, DrawSService drawSService,
-                       DrawTService drawTService, DrawIService drawIService) {
+                       DrawTService drawTService, DrawIService drawIService, DrawLService drawLService) {
         this.drawJService = drawJService;
         this.drawOService = drawOSerivce;
         this.drawZService = drawZService;
         this.drawSService = drawSService;
         this.drawTService = drawTService;
         this.drawIService = drawIService;
+        this.drawLService = drawLService;
     }
 
     public void drawFigure(Field field, Figure figure) {
@@ -33,7 +35,7 @@ public class DrawService {
             case RED_Z ->  drawZService.drawFigure(field);
             case GREEN_S ->  drawSService.drawFigure(field);
             case CYAN_I -> drawIService.drawFigure(field);
-//            case ORANGE_L -> drawOrangeL(field);
+            case ORANGE_L -> drawLService.drawFigure(field);
             case YELLOW_O  -> drawOService.drawFigure(field);
             case PURPLE_T -> drawTService.drawFigure(field);
         }
