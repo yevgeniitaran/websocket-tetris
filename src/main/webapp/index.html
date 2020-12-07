@@ -34,7 +34,27 @@
             for (let i = 0; i < field.length; i++) {
                 for (let j = 0; j < field.length; j++) {
                     if (field[i][j] !== 'N') {
-                        ctx.fillStyle = "#adc225";
+                        if (field[i][j] == 'C') {
+                            ctx.fillStyle = "cyan";
+                        }
+                        if (field[i][j] == 'Y') {
+                            ctx.fillStyle = "yellow";
+                        }
+                        if (field[i][j] == 'P') {
+                            ctx.fillStyle = "purple";
+                        }
+                        if (field[i][j] == 'G') {
+                            ctx.fillStyle = "green";
+                        }
+                        if (field[i][j] == 'B') {
+                            ctx.fillStyle = "blue";
+                        }
+                        if (field[i][j] == 'R') {
+                            ctx.fillStyle = "red";
+                        }
+                        if (field[i][j] == 'O') {
+                            ctx.fillStyle = "orange";
+                        }
                         ctx.fillRect(2 + j * 30, 2 + i * 30, 26, 26);
                     }
                 }
