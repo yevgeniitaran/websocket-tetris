@@ -17,6 +17,7 @@ public class FieldController {
 
     private final FieldService fieldService;
     private final SimpMessagingTemplate template;
+    private boolean fieldDisabled = false;
 
     public FieldController(FieldService fieldService, SimpMessagingTemplate template) {
         this.fieldService = fieldService;
@@ -25,6 +26,9 @@ public class FieldController {
 
     @Scheduled(fixedRate = 500)
     public void fieldTick() {
+        if (fieldDisabled) {
+            return;
+        }
         fieldService.tick();
         this.template.convertAndSend("/topic/game", new FieldDto(fieldService.getField().toString()));
     }
@@ -33,6 +37,14 @@ public class FieldController {
     public void performAction(ActionDto actionDto) {
         fieldService.performAction(actionDto.getAction());
         this.template.convertAndSend("/topic/game", new FieldDto(fieldService.getField().toString()));
+    }
+
+    public void stop() {
+        fieldDisabled = true;
+    }
+
+    public void start() {
+        fieldDisabled = false;
     }
 
 }
