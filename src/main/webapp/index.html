@@ -59,36 +59,39 @@
                     }
                 }
             }
-            response.appendChild(canvas);
         }
 
         document.addEventListener('keydown', sendAction);
+
         function sendAction(e) {
             if (e.code === 'KeyA') {
-                stompClient.send("/app/tetris", {}, JSON.stringify({'action':'LEFT'}));
-            }
-            else if (e.code === 'KeyD') {
-                stompClient.send("/app/tetris", {}, JSON.stringify({'action':'RIGHT'}));
-            }
-            else if (e.code === 'KeyS') {
-                stompClient.send("/app/tetris", {}, JSON.stringify({'action':'DOWN'}));
-            }
-            else if (e.code === 'KeyW') {
-                stompClient.send("/app/tetris", {}, JSON.stringify({'action':'ROTATE'}));
-            }
-            else if (e.key === 'ArrowUp') {
-                stompClient.send("/app/tetris", {}, JSON.stringify({'action':'ROTATE'}));
-            }
-            else if (e.key === 'ArrowDown') {
-                stompClient.send("/app/tetris", {}, JSON.stringify({'action':'DOWN'}));
-            }
-            else if (e.key === 'ArrowLeft') {
-                stompClient.send("/app/tetris", {}, JSON.stringify({'action':'LEFT'}));
-            }
-            else if (e.key === 'ArrowRight') {
-                stompClient.send("/app/tetris", {}, JSON.stringify({'action':'RIGHT'}));
+                stompClient.send("/app/tetris", {}, JSON.stringify({'action': 'LEFT'}));
+            } else if (e.code === 'KeyD') {
+                stompClient.send("/app/tetris", {}, JSON.stringify({'action': 'RIGHT'}));
+            } else if (e.code === 'KeyS') {
+                stompClient.send("/app/tetris", {}, JSON.stringify({'action': 'DOWN'}));
+            } else if (e.code === 'KeyW') {
+                stompClient.send("/app/tetris", {}, JSON.stringify({'action': 'ROTATE'}));
+            } else if (e.key === 'ArrowUp') {
+                stompClient.send("/app/tetris", {}, JSON.stringify({'action': 'ROTATE'}));
+            } else if (e.key === 'ArrowDown') {
+                stompClient.send("/app/tetris", {}, JSON.stringify({'action': 'DOWN'}));
+            } else if (e.key === 'ArrowLeft') {
+                stompClient.send("/app/tetris", {}, JSON.stringify({'action': 'LEFT'}));
+            } else if (e.key === 'ArrowRight') {
+                stompClient.send("/app/tetris", {}, JSON.stringify({'action': 'RIGHT'}));
             }
         }
+
+
+        function start() {
+            stompClient.send("/app/start", {}, {});
+        }
+
+        function stop() {
+            stompClient.send("/app/stop", {}, {});
+        }
+
 
     </script>
 
@@ -96,12 +99,17 @@
 
 <body>
 
-<div>
-    <br/>
-    <div id="response">
-        <canvas id="canvas"></canvas>
-    </div>
-</div>
+<table style="border-collapse: collapse;">
+    <tr>
+        <th style="width: 300px; height: 600px; padding: 0; margin: 0;">
+            <canvas id="canvas"></canvas>
+        </th>
+        <th style="vertical-align: top;">
+            <button style="width: 100px; height: 20px;" onclick="start()">Start</button></br>
+            <button style="width: 100px; height: 20px;" onclick="stop()">Stop</button>
+        </th>
+    </tr>
+</table>
 
 </body>
 </html>

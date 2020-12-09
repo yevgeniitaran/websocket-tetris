@@ -39,10 +39,12 @@ public class FieldController {
         this.template.convertAndSend("/topic/game", new FieldDto(fieldService.getField().toString()));
     }
 
+    @MessageMapping("/stop")
     public void stop() {
         fieldDisabled = true;
     }
 
+    @MessageMapping("/start")
     public void start() {
         fieldDisabled = false;
     }
