@@ -17,7 +17,7 @@ public class FieldController {
 
     private final FieldService fieldService;
     private final SimpMessagingTemplate template;
-    private boolean fieldDisabled = false;
+    private boolean fieldDisabled = true;
 
     public FieldController(FieldService fieldService, SimpMessagingTemplate template) {
         this.fieldService = fieldService;
