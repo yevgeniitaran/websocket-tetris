@@ -105,6 +105,7 @@ public class FieldService {
                             field.getCells()[rowNum][i] = new Cell();
                         }
                     }
+                    field.setScore(field.getScore() + 10);
                 }
             }
         }

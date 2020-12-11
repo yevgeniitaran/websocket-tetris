@@ -16,8 +16,8 @@ public class Field {
     private FigureState figureState;
     private Point figureCenter;
     private List<Point> figurePoints = new ArrayList<>();
-    private boolean figureCollapsed;
     private boolean isGameEnded;
+    private int score = 0;
 
     public Field() {
         for (Cell[] row : cells) {
@@ -59,6 +59,14 @@ public class Field {
 
     public List<Point> getFigurePoints() {
         return figurePoints;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public boolean isFigureCollapsed() {
@@ -103,7 +111,6 @@ public class Field {
         figurePoints.clear();
         figureState = null;
         figureCenter = null;
-        figureCollapsed = false;
     }
 
     @Override
