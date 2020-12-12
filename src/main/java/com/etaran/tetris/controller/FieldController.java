@@ -30,13 +30,15 @@ public class FieldController {
             return;
         }
         fieldService.tick();
-        this.template.convertAndSend("/topic/game", new FieldDto(fieldService.getField().toString()));
+        this.template.convertAndSend("/topic/game", new FieldDto(fieldService.getField().toString(),
+                fieldService.getField().getScore()));
     }
 
     @MessageMapping("/tetris")
     public void performAction(ActionDto actionDto) {
         fieldService.performAction(actionDto.getAction());
-        this.template.convertAndSend("/topic/game", new FieldDto(fieldService.getField().toString()));
+        this.template.convertAndSend("/topic/game", new FieldDto(fieldService.getField().toString(),
+                fieldService.getField().getScore()));
     }
 
     @MessageMapping("/stop")
